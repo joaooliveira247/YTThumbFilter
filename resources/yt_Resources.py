@@ -1,5 +1,9 @@
 from urllib import request
 from pytube import YouTube
+from pathlib import Path
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 class YTThumb():
@@ -10,16 +14,17 @@ class YTThumb():
     def thumb_download(self):
         self.title = YouTube(self.url).title
         self.img_url = YouTube(self.url).thumbnail_url
-        request.urlretrieve(self.img_url, self.title + '.jpg')
+        request.urlretrieve(
+            BASE_DIR + self.img_url, self.title + '.jpg')
         if self.dir:
             request.urlretrieve(
-                self.img_url, self.dir + '/' + 'self.title' + '.jpg')
+                self.img_url, BASE_DIR + self.dir + '/' + self.title + '.jpg')
 
-            return self.dir + '/' + 'self.title' + '.jpg'
+            # return BASE_DIR + self.dir + '/' + 'self.title' + '.jpg'
 
     def thumb_info(self):
         return [self.title, self.img_url, self.img_url]
 
 
 if __name__ == '__main__':
-    YTThumb('https://www.youtube.com/watch?v=ga-lNw_LJ50').thumb_download()
+    YTThumb().thumb_download()
