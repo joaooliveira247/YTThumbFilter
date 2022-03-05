@@ -14,17 +14,18 @@ class YTThumb():
     def thumb_download(self):
         self.title = YouTube(self.url).title
         self.img_url = YouTube(self.url).thumbnail_url
-        request.urlretrieve(
-            BASE_DIR + self.img_url, self.title + '.jpg')
-        if self.dir:
-            request.urlretrieve(
-                self.img_url, BASE_DIR + self.dir + '/' + self.title + '.jpg')
+        # request.urlretrieve(
+        #     self.img_url, BASE_DIR / (self.title + '.jpg'))
+        # if self.dir:
+        #     request.urlretrieve(
+        #         self.img_url, BASE_DIR / self.dir / (self.title + '.jpg'))
 
-            # return BASE_DIR + self.dir + '/' + 'self.title' + '.jpg'
+        #     # return BASE_DIR + self.dir + '/' + 'self.title' + '.jpg'
+        return self.title, self.img_url
 
     def thumb_info(self):
-        return [self.title, self.img_url, self.img_url]
+        return print([self.url, self.title, self.img_url])
 
 
 if __name__ == '__main__':
-    YTThumb().thumb_download()
+    print(YTThumb('https://www.youtube.com/watch?v=Q2-DC-68IRI').thumb_download())
