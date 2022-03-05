@@ -7,11 +7,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 class YTThumb():
-    def __init__(self, url: str, dir: str = None):
+    def __init__(self, url: str):
         self.url = url
         self.dir = dir
 
-    def thumb_info(self):
+    def thumb_info(self) -> None:
         self.title = YouTube(self.url).title
         self.img_url = YouTube(self.url).thumbnail_url
         return {
