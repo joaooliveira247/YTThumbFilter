@@ -2,11 +2,10 @@ from resources.yt_Resources import YTThumb
 import easyocr
 
 
-def test():
-    ocr = easyocr.Reader(['pt', 'en'], gpu=False)
-    result = ocr.readtext('https://i.ytimg.com/vi/Q2-DC-68IRI/sddefault.jpg')
-    return result
-
-
-for a, b, c in test():
-    print(a, b, c)
+def test(url, gpu=False):
+    _info = YTThumb(url).thumb_info()
+    _ocr = easyocr.Reader(['pt', 'en'], gpu=gpu)
+    result = _ocr.readtext(_info['img_url'])
+    for _bbox, text, prob in result:
+        if prob > 0.5:
+            print(text)
