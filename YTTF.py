@@ -4,8 +4,8 @@ import easyocr
 
 
 class YTStats():
-    try:
-        def single_video(url: str, gpu: str = False, download: bool = False):
+    def single_video(url: str, gpu: str = False, download: bool = False):
+        try:
             _info = YTThumb().thumb_info(url=url, download=download)
             _ocr = easyocr.Reader(['pt', 'en'], gpu=gpu)
             result = _ocr.readtext(_info['img_url'])
@@ -19,8 +19,8 @@ class YTStats():
 
             return _info
 
-    except Exception as error:
-        raise error
+        except Exception as error:
+            raise error
 
     def channel_videos(url: str, gpu: str = False, download: bool = False):
         _info = YTThumb().thumb_info_channel()
