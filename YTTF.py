@@ -1,4 +1,3 @@
-from cv2 import FlannBasedMatcher
 from resources.yt_resources import YTThumb
 import easyocr
 
