@@ -1,12 +1,12 @@
-from resources.yt_Resources import YTThumb
+from cv2 import FlannBasedMatcher
+from resources.yt_resources import YTThumb
 import easyocr
 
 
 class YTStats():
-
-    def single_video(url: str, gpu: str = False, download: str = False):
-        try:
-            _info = YTThumb(url).thumb_info(download=download)
+    try:
+        def single_video(url: str, gpu: str = False, download: bool = False):
+            _info = YTThumb().thumb_info(url=url, download=download)
             _ocr = easyocr.Reader(['pt', 'en'], gpu=gpu)
             result = _ocr.readtext(_info['img_url'])
             words = []
@@ -14,17 +14,15 @@ class YTStats():
                 if prob > 0.5:
                     words.append(text)
 
-            return {
-                'text': ' '.join(words), 'title': _info['title'],
-                'url': _info['url']
-                }
+            _info['text'] = ' '.join(words)
+            _info.pop('img_url')
 
-        except Exception as error:
-            raise error
+            return _info
 
-    # def channel_videos(url: str, gpu: str = False):
-    #     try:
-    #         _info = YTThumb(url)
+    except Exception as error:
+        raise error
 
+    def channel_videos(url: str, gpu: str = False, download: bool = False):
+        _info = YTThumb().thumb_info_channel()
+        return _info
 
-print(YTStats.single_video("https://www.youtube.com/watch?v=Xl5T6zFUezc"))
